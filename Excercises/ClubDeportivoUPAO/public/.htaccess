@@ -1,0 +1,19 @@
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+RewriteBase /
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+DirectoryIndex index.php
+RewriteRule ^page_404$ error_404.php [L,NC]
+RewriteRule ^page_500$ error_500.php [L,NC]
+ErrorDocument 404 /page_404
+ErrorDocument 500 /page_500
+RewriteRule ^login$ login.php [L,NC]
+RewriteRule ^logout$ logout.php [L,NC]
+RewriteRule ^registro$ registro.php [L,NC]
+RewriteRule ^perfil$ perfil.php [L,NC]
+RewriteRule ^reservas$ reservas.php [L,NC]
+RewriteRule ^resultados$ resultados.php [L,NC]
+RewriteRule ^puntajes$ puntajes.php [L,NC]
