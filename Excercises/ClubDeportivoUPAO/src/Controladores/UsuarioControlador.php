@@ -18,9 +18,14 @@ class UsuarioControlador
         $this->vista = $vista;
     }
 
-    public function updateVista(): void
+    public function getOneVista()
     {
-        $this->vista->mostrarDetallesUsuario($this->modelo->getDNI());
+        return $this->vista->vistaMostrarUsuario($this->modelo->getDNI());
+    }
+
+    public function registerVista()
+    {
+        return $this->vista->vistaRegistrarUsuario($this->modelo);
     }
 
     public function setUsuarioNombre(string $nombre): void

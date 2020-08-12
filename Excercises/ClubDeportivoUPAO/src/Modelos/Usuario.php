@@ -6,7 +6,7 @@ namespace App\Modelos;
 
 class Usuario
 {
-    private $id, $nombre, $correo, $telefono, $dni;
+    private $id, $nombre, $correo, $password, $telefono, $dni;
 
     public function getId(): int
     {
@@ -36,6 +36,16 @@ class Usuario
     public function setCorreo(string $correo): void
     {
         $this->correo = $correo;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 
     public function getTelefono(): string

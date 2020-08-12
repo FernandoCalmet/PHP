@@ -17,8 +17,8 @@ final class UsuarioDAO implements IUsuarioDAO
     public function __construct()
     {
         $basedatos = new ConexionDAO();
-        $this->basedatos = $basedatos->mysql(); 
-    }    
+        $this->basedatos = $basedatos->mysql();
+    }
 
     public function getAllUsuarios()
     {
@@ -41,7 +41,20 @@ final class UsuarioDAO implements IUsuarioDAO
         return $usuario;
     }
 
-    public function createUsuario(Usuario $usuario): void
+    public function getUsuarioId(int $id): object
+    {
+        $query = "SELECT id, nombre, correo, telefono, dni FROM usuarios WHERE id = :id";
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $usuario = $statement->fetchObject();
+        if (!$usuario) {
+            throw new UsuarioException('No se encontro al usuario.', 404);
+        }
+        return $usuario;
+    }
+
+    public function createUsuario(Usuario $usuario): object
     {
         $query = "INSERT INTO usuarios (nombre, correo, telefono, dni) VALUES (:nombre, :correo, :telefono, :dni)";
         $statement = $this->basedatos->prepare($query);
@@ -50,9 +63,10 @@ final class UsuarioDAO implements IUsuarioDAO
         $statement->bindParam(':telefono', $usuario->getTelefono());
         $statement->bindParam(':dni', $usuario->getDNI());
         $statement->execute();
+        return $this->getUsuarioId((int) $this->basedatos->lastInsertId());
     }
 
-    public function updateUsuario(Usuario $usuario): void
+    public function updateUsuario(Usuario $usuario): object
     {
         $query = "UPDATE usuarios SET nombre = :nombre, correo = :correo, telefono = :telefono, dni = :dni WHERE id = :id";
         $statement = $this->basedatos->prepare($query);
@@ -62,6 +76,7 @@ final class UsuarioDAO implements IUsuarioDAO
         $statement->bindParam(':telefono', $usuario->getTelefono());
         $statement->bindParam(':dni', $usuario->getDNI());
         $statement->execute();
+        return $this->getUsuarioId((int) $usuario->id);
     }
 
     public function deleteUsuario(Usuario $usuario): void
@@ -70,5 +85,17 @@ final class UsuarioDAO implements IUsuarioDAO
         $statement = $this->basedatos->prepare($query);
         $statement->bindParam(':id', $usuario->getId());
         $statement->execute();
+    }
+
+    public function checkUsuarioByEmail(string $correo): void
+    {
+        $query = 'SELECT * FROM usuarios WHERE correo = :correo';
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam('correo', $correo);
+        $statement->execute();
+        $usuario = $statement->fetchObject();
+        if ($usuario) {
+            throw new UsuarioException('El correo ya esta en uso.', 400);
+        }
     }
 }
