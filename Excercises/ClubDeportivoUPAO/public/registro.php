@@ -2,12 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Modelos\Usuario;
-
 require __DIR__ . '/../src/App/App.php';
 require __DIR__ . '/forms/PostData.php';
-
-include __DIR__ . '/../src/Modelos/Usuario.php';
 
 if (isset($_SESSION['usuario'])) {
     header("Location: /");
@@ -18,15 +14,14 @@ $message = '';
 if (isset($_POST['txtEmail']) && isset($_POST['txtPassword']) && isset($_POST['txtPasswordConfirm']) && isset($_POST['txtName']) && isset($_POST['txtPhone']) && isset($_POST['txtDNI'])) {
     if (!empty($_POST['txtEmail']) && !empty($_POST['txtPassword']) && !empty($_POST['txtPasswordConfirm']) && !empty($_POST['txtName']) && !empty($_POST['txtPhone']) && !empty($_POST['txtDNI'])) {
         if ($_POST['txtPassword'] == $_POST['txtPasswordConfirm']) {
-            $usuario = new Usuario();
-            $usuario->setCorreo(filter_var($_POST['txtEmail']), FILTER_VALIDATE_EMAIL);
-            $usuario->setPassword(hash('sha512', $_POST['txtPassword']));
-            $usuario->setNombre(filter_var($_POST['txtName']), FILTER_SANITIZE_STRIPPED);
-            $usuario->setTelefono(filter_var($_POST['txtPhone']), FILTER_SANITIZE_STRIPPED);
-            $usuario->setDNI(filter_var($_POST['txtDNI']), FILTER_SANITIZE_STRIPPED);
-            $response = new PostData($usuario);
-            $_SESSION['usuario'] = $response;
-            var_dump($_SESSION['usuario']); //justfortest
+            $usuario = new stdClass();
+            $usuario->correo = filter_var($_POST['txtEmail'], FILTER_VALIDATE_EMAIL);
+            $usuario->password = hash('sha512', $_POST['txtPassword']);
+            $usuario->nombre = filter_var($_POST['txtName'], FILTER_SANITIZE_STRIPPED);
+            $usuario->telefono = filter_var($_POST['txtPhone'], FILTER_SANITIZE_STRIPPED);
+            $usuario->dni = filter_var($_POST['txtDNI'], FILTER_SANITIZE_STRIPPED);
+            $postdata = new PostData();
+            $_SESSION['usuario'] = $postdata->registrarUsuario($usuario);
             $message = "El registro se realizo exitosamente!";
         } else {
             $message = "ERROR: Las contraseñas no coinciden.";
@@ -35,7 +30,6 @@ if (isset($_POST['txtEmail']) && isset($_POST['txtPassword']) && isset($_POST['t
         $message = "ERROR: No se permiten campos vacios";
     }
 }
-
 ?>
 
 <?php include __DIR__ . '/partials/head.php'; ?>
@@ -76,6 +70,7 @@ if (isset($_POST['txtEmail']) && isset($_POST['txtPassword']) && isset($_POST['t
                     <div class="regi-side">
                         <div class="sec-title">
                             <h2 class="title">Crear una cuenta</h2>
+                            <h4 style="color: red;"><?php echo $message ?></h4>
                         </div>
                         <form class="register-form" id="register-form" method="post" action="/registro">
 

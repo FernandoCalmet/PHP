@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controladores;
 
-use App\Modelos\Usuario;
 use App\Vistas\UsuarioVista;
 
 class UsuarioControlador

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\AccesoDatos;
 
-use App\Modelos\Usuario;
 use App\Exception\UsuarioException;
 
-include __DIR__ . '/IUsuarioDAO.php';
-include __DIR__ . '/ConexionDAO.php';
+require __DIR__ . '/IUsuarioDAO.php';
+require __DIR__ . '/ConexionDAO.php';
+require __DIR__ . '/../Excepciones/UsuarioException.php';
 
 final class UsuarioDAO implements IUsuarioDAO
 {
@@ -54,36 +54,37 @@ final class UsuarioDAO implements IUsuarioDAO
         return $usuario;
     }
 
-    public function createUsuario(Usuario $usuario): object
+    public function createUsuario(object $usuario): object
     {
-        $query = "INSERT INTO usuarios (nombre, correo, telefono, dni) VALUES (:nombre, :correo, :telefono, :dni)";
+        $query = "INSERT INTO usuarios (nombre, correo, password, telefono, dni) VALUES (:nombre, :correo, :password, :telefono, :dni)";
         $statement = $this->basedatos->prepare($query);
-        $statement->bindParam(':nombre', $usuario->getNombre());
-        $statement->bindParam(':correo', $usuario->getCorreo());
-        $statement->bindParam(':telefono', $usuario->getTelefono());
-        $statement->bindParam(':dni', $usuario->getDNI());
+        $statement->bindParam(':nombre', $usuario->nombre);
+        $statement->bindParam(':correo', $usuario->correo);
+        $statement->bindParam(':password', $usuario->password);
+        $statement->bindParam(':telefono', $usuario->telefono);
+        $statement->bindParam(':dni', $usuario->dni);
         $statement->execute();
         return $this->getUsuarioId((int) $this->basedatos->lastInsertId());
     }
 
-    public function updateUsuario(Usuario $usuario): object
+    public function updateUsuario(object $usuario): object
     {
         $query = "UPDATE usuarios SET nombre = :nombre, correo = :correo, telefono = :telefono, dni = :dni WHERE id = :id";
         $statement = $this->basedatos->prepare($query);
-        $statement->bindParam(':id', $usuario->getId());
-        $statement->bindParam(':nombre', $usuario->getNombre());
-        $statement->bindParam(':correo', $usuario->getCorreo());
-        $statement->bindParam(':telefono', $usuario->getTelefono());
-        $statement->bindParam(':dni', $usuario->getDNI());
+        $statement->bindParam(':id', $usuario->id);
+        $statement->bindParam(':nombre', $usuario->nombre);
+        $statement->bindParam(':correo', $usuario->correo);
+        $statement->bindParam(':telefono', $usuario->telefono);
+        $statement->bindParam(':dni', $usuario->dni);
         $statement->execute();
         return $this->getUsuarioId((int) $usuario->id);
     }
 
-    public function deleteUsuario(Usuario $usuario): void
+    public function deleteUsuario(object $usuario): void
     {
         $query = "DELETE FROM usuarios WHERE id = :id";
         $statement = $this->basedatos->prepare($query);
-        $statement->bindParam(':id', $usuario->getId());
+        $statement->bindParam(':id', $usuario->id);
         $statement->execute();
     }
 

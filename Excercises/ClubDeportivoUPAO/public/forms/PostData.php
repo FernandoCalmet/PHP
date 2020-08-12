@@ -11,16 +11,15 @@ include __DIR__ . '/../../src/Vistas/UsuarioVista.php';
 class PostData
 {
     private $usuarioVista;
-    private $usuarioControlador;
 
-    public function __construct($usuarioModel)
+    public function __construct()
     {
-        $this->usuarioVista = new UsuarioVista();
-        $this->usuarioControlador = new UsuarioControlador($usuarioModel, $this->usuarioVista);
+        $this->usuarioVista = new UsuarioVista();     
     }
 
-    public function registrarUsuario()
+    public function registrarUsuario($usuarioModel)
     {
-        $this->usuarioControlador->registerVista($this->usuarioModel);
+        $usuarioControlador = new UsuarioControlador($usuarioModel, $this->usuarioVista);
+        $usuarioControlador->registerVista($usuarioModel);
     }
 }

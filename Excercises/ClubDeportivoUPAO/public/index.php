@@ -4,31 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
 
-
-use App\Controladores\UsuarioControlador;
-use App\Modelos\Usuario;
-use App\Vistas\UsuarioVista;
-use App\AccesoDatos\UsuarioDAO;
-
-include __DIR__ . '/../src/Controladores/UsuarioControlador.php';
-include __DIR__ . '/../src/Modelos/Usuario.php';
-include __DIR__ . '/../src/Vistas/UsuarioVista.php';
-include __DIR__ . '/../src/AccesoDatos/UsuarioDAO.php';
-
-//test
-$usuarioModel = retrieveUsuarioFromDatabase();
-
-$usuarioVista = new UsuarioVista();
-
-$usuarioControlador = new UsuarioControlador($usuarioModel, $usuarioVista);
-$usuarioControlador->getOneVista();
-
-function retrieveUsuarioFromDatabase()
-{
-    $usuario = new Usuario();
-    $usuario->setDNI("12345678");
-    return $usuario;
-}
+//var_dump($_SESSION['usuario']); //justfortest
 
 ?>
 
@@ -92,7 +68,7 @@ function retrieveUsuarioFromDatabase()
     <div id="tab-canchas" class="rs-products nav-style pt-92 md-pt-77">
         <div class="container">
             <div class="title-style text-center mb-50 md-mb-30">
-                <h2 class="margin-0 uppercase">Canchas</h2>
+                <h2 class="margin-0 uppercase">Campos deportivos</h2>
                 <span class="line-bg y-b pt-10"></span>
             </div>
             <div class="rs-carousel owl-carousel mb-100 md-mb-80" data-loop="true" data-items="4" data-margin="30" data-autoplay="true" data-autoplay-timeout="8000" data-smart-speed="2000" data-dots="false" data-nav="true" data-nav-speed="false" data-mobile-device="1" data-mobile-device-nav="false" data-mobile-device-dots="false" data-ipad-device="3" data-ipad-device-nav="false" data-ipad-device-dots="false" data-ipad-device2="2" data-ipad-device-nav2="false" data-ipad-device-dots2="false" data-md-device="4" data-md-device-nav="true" data-md-device-dots="false">
@@ -100,9 +76,9 @@ function retrieveUsuarioFromDatabase()
                     <div class="product-img">
                         <a href="#"><img src="assets/images/products/1.png" alt=""></a>
                     </div>
-                    <h4 class="product-title"><a href="#">T-shirt Lol Red</a></h4>
+                    <h4 class="product-title"><a href="#">Cancha A</a></h4>
                     <span class="product-price">
-                        <span class="symbol">£</span>65.00
+                        <span class="symbol">S/. </span>65.00
                     </span>
                     <div class="cart-button">
                         <a href="#"><i class="flaticon-basket"></i></a>
@@ -112,9 +88,9 @@ function retrieveUsuarioFromDatabase()
                     <div class="product-img">
                         <a href="#"><img src="assets/images/products/2.png" alt=""></a>
                     </div>
-                    <h4 class="product-title"><a href="#">T-shirt Pet Yellow</a></h4>
+                    <h4 class="product-title"><a href="#">Cancha B</a></h4>
                     <span class="product-price">
-                        <span class="symbol">£</span>65.00
+                        <span class="symbol">S/. </span>65.00
                     </span>
                     <div class="cart-button">
                         <a href="#"><i class="flaticon-basket"></i></a>
@@ -124,9 +100,9 @@ function retrieveUsuarioFromDatabase()
                     <div class="product-img">
                         <a href="#"><img src="assets/images/products/3.png" alt=""></a>
                     </div>
-                    <h4 class="product-title"><a href="#">T-shirt Dark Green</a></h4>
+                    <h4 class="product-title"><a href="#">Cancha C</a></h4>
                     <span class="product-price">
-                        <span class="symbol">£</span>65.00
+                        <span class="symbol">S/. </span>65.00
                     </span>
                     <div class="cart-button">
                         <a href="#"><i class="flaticon-basket"></i></a>
@@ -136,9 +112,9 @@ function retrieveUsuarioFromDatabase()
                     <div class="product-img">
                         <a href="#"><img src="assets/images/products/4.png" alt=""></a>
                     </div>
-                    <h4 class="product-title"><a href="#">T-shirt Creem Pink</a></h4>
+                    <h4 class="product-title"><a href="#">Cancha D</a></h4>
                     <span class="product-price">
-                        <span class="symbol">£</span>65.00
+                        <span class="symbol">S/. </span>65.00
                     </span>
                     <div class="cart-button">
                         <a href="#"><i class="flaticon-basket"></i></a>
@@ -148,9 +124,9 @@ function retrieveUsuarioFromDatabase()
                     <div class="product-img">
                         <a href="#"><img src="assets/images/products/5.png" alt=""></a>
                     </div>
-                    <h4 class="product-title"><a href="#">T-shirt Drak Blue</a></h4>
+                    <h4 class="product-title"><a href="#">Cancha E</a></h4>
                     <span class="product-price">
-                        <span class="symbol">£</span>65.00
+                        <span class="symbol">S/. </span>65.00
                     </span>
                     <div class="cart-button">
                         <a href="#"><i class="flaticon-basket"></i></a>
@@ -160,9 +136,9 @@ function retrieveUsuarioFromDatabase()
                     <div class="product-img">
                         <a href="#"><img src="assets/images/products/6.png" alt=""></a>
                     </div>
-                    <h4 class="product-title"><a href="#">Sports Back Cap</a></h4>
+                    <h4 class="product-title"><a href="#">Cancha F</a></h4>
                     <span class="product-price">
-                        <span class="symbol">£</span>65.00
+                        <span class="symbol">S/. </span>65.00
                     </span>
                     <div class="cart-button">
                         <a href="#"><i class="flaticon-basket"></i></a>

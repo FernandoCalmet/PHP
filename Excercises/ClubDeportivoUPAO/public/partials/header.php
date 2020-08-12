@@ -71,7 +71,7 @@
         <div class="sidebarnav_menu">
             <ul>
                 <li class="active"><a href="/">Inicio</a></li>
-                <li><a href="/registro">Login</a></li>
+                <li><a href="/login">Login</a></li>
                 <li><a href="/registro">Registro</a></li>
                 <li><a href="/reservas">Reservas</a></li>
                 <li><a href="/resultados">Resultados</a></li>
