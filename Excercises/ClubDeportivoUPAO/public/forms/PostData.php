@@ -14,12 +14,18 @@ class PostData
 
     public function __construct()
     {
-        $this->usuarioVista = new UsuarioVista();     
+        $this->usuarioVista = new UsuarioVista();
     }
 
     public function registrarUsuario($usuarioModel)
     {
         $usuarioControlador = new UsuarioControlador($usuarioModel, $this->usuarioVista);
-        $usuarioControlador->registerVista($usuarioModel);
+        return $usuarioControlador->registerVista($usuarioModel);
+    }
+
+    public function loginUsuario($usuarioModel)
+    {
+        $usuarioControlador = new UsuarioControlador($usuarioModel, $this->usuarioVista);
+        return $usuarioControlador->loginVista($usuarioModel);
     }
 }

@@ -4,7 +4,17 @@ declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
 
+$usuario = new stdClass();
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: /login");
+    $usuario = null;
+} else {
+    $usuario = $_SESSION['usuario'];
+}
+
 $message = '';
+
 ?>
 
 <?php include __DIR__ . '/partials/head.php'; ?>
@@ -48,7 +58,8 @@ $message = '';
                             <h4 style="color: red;"><?php echo $message ?></h4>
                         </div>
                         <div>
-                            Tabla con lista de campos
+                            <h2 style="color: #214790;">Bienvenido <b><?php echo $usuario->nombre ?> </b>!</h2>
+                            <p>Tabla con lista de campos</p>
                         </div>
                     </div>
                 </div>

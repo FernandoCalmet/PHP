@@ -28,11 +28,11 @@ final class UsuarioDAO implements IUsuarioDAO
         return $statement->fetchAll();
     }
 
-    public function getUsuario(string $dni): object
+    public function getUsuario(object $usuario): object
     {
         $query = "SELECT id, nombre, correo, telefono, dni FROM usuarios WHERE dni = :dni";
         $statement = $this->basedatos->prepare($query);
-        $statement->bindParam(':dni', $dni);
+        $statement->bindParam(':dni', $usuario->dni);
         $statement->execute();
         $usuario = $statement->fetchObject();
         if (!$usuario) {
@@ -98,5 +98,25 @@ final class UsuarioDAO implements IUsuarioDAO
         if ($usuario) {
             throw new UsuarioException('El correo ya esta en uso.', 400);
         }
+    }
+
+    public function loginUsuario(object $usuario): object
+    {
+        $query = '
+            SELECT *
+            FROM `usuarios`
+            WHERE `correo` = :correo AND `password` = :password
+            ORDER BY `id`
+        ';
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam('correo', $usuario->correo);
+        $statement->bindParam('password', $usuario->password);
+        $statement->execute();
+        $usuario = $statement->fetchObject();
+        if (!$usuario) {
+            throw new UsuarioException('El correo o la contraseña es incorrecta', 400);
+        }
+
+        return $usuario;
     }
 }

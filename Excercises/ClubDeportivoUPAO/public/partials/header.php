@@ -45,13 +45,17 @@
                                         </a>
                                     </span>
                                 </div>
-                                <ul class="nav-menu text-right">                            
-                                    <li class="current-menu-item current_page_item menu-item-has-children"> <a href="/" class="home">Inicio</a></li>            
-                                    <li class="rs-mega-menu mega-rs menu-item-has-children"> <a href="/login">Login</a></li>                                   
-                                    <li class="rs-mega-menu mega-rs menu-item-has-children"> <a href="/registro">Registro</a></li>  
-                                    <li class="menu-item-has-children"><a href="/reservas">Reservas</a></li>                                
-                                    <li><a href="/resultados">Resultados</a></li>                               
-                                    <li><a href="/puntajes">Puntajes</a></li>                                 
+                                <ul class="nav-menu text-right">
+                                    <li class="current-menu-item current_page_item menu-item-has-children"> <a href="/" class="home">Inicio</a></li>
+                                    <?php if (isset($_SESSION['usuario'])) { ?>
+                                        <li class="rs-mega-menu mega-rs menu-item-has-children"> <a href="/logout">Logout</a></li>
+                                    <?php } else { ?>
+                                        <li class="rs-mega-menu mega-rs menu-item-has-children"> <a href="/login">Login</a></li>
+                                        <li class="rs-mega-menu mega-rs menu-item-has-children"> <a href="/registro">Registro</a></li>
+                                    <?php }; ?>
+                                    <li class="menu-item-has-children"><a href="/reservas">Reservas</a></li>
+                                    <li><a href="/resultados">Resultados</a></li>
+                                    <li><a href="/puntajes">Puntajes</a></li>
                                 </ul> <!-- //.nav-menu -->
                             </nav>
                         </div> <!-- //.main-menu -->
@@ -71,8 +75,12 @@
         <div class="sidebarnav_menu">
             <ul>
                 <li class="active"><a href="/">Inicio</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/registro">Registro</a></li>
+                <?php if (isset($_SESSION['usuario'])) { ?>
+                    <li><a href="/logout">Logout</a></li>
+                <?php } else { ?>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/registro">Registro</a></li>
+                <?php }; ?>
                 <li><a href="/reservas">Reservas</a></li>
                 <li><a href="/resultados">Resultados</a></li>
                 <li><a href="/puntajes">Puntajes</a></li>

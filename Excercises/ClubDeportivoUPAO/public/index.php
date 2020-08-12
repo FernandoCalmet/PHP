@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
 
-//var_dump($_SESSION['usuario']); //justfortest
-
 ?>
 
 <?php include __DIR__ . '/partials/head.php'; ?>

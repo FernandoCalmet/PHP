@@ -3,12 +3,26 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
+require __DIR__ . '/forms/PostData.php';
 
 if (isset($_SESSION['usuario'])) {
-    header("Location: /");
+    header("Location: /reservas");
 }
 
 $message = '';
+
+if (isset($_POST['txtEmail']) && isset($_POST['txtPassword'])) {
+    if (!empty($_POST['txtEmail']) && !empty($_POST['txtPassword'])) {
+        $usuario = new stdClass();
+        $usuario->correo = filter_var($_POST['txtEmail'], FILTER_VALIDATE_EMAIL);
+        $usuario->password = hash('sha512', $_POST['txtPassword']);
+        $postdata = new PostData();
+        $_SESSION['usuario'] = $postdata->loginUsuario($usuario);
+        $message = "Se conecto exitosamente!";
+    } else {
+        $message = "ERROR: No se permiten campos vacios";
+    }
+}
 ?>
 
 <?php include __DIR__ . '/partials/head.php'; ?>
@@ -49,12 +63,13 @@ $message = '';
                     <div class="login-side">
                         <div class="sec-title">
                             <h2 class="title">Login</h2>
+                            <h4 style="color: red;"><?php echo $message ?></h4>
                         </div>
-                        <form class="login-form">
+                        <form class="login-form" id="login-form" method="post" action="/login">
                             <label class="input-label">Correo electronico<span>*</span></label>
-                            <input class="input-control" type="email" name="email" required>
+                            <input class="input-control" type="email" name="txtEmail" required>
                             <label class="input-label">Contraseña <span>*</span></label>
-                            <input class="input-control" type="password" name="password" required>
+                            <input class="input-control" type="password" name="txtPassword" required>
                             <div class="login-control">
                                 <ul>
                                     <li><button type="submit" class="readon">Iniciar Sesión</button></li>

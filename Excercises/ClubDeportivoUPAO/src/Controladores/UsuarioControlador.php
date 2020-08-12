@@ -19,7 +19,12 @@ class UsuarioControlador
 
     public function getOneVista()
     {
-        return $this->vista->vistaMostrarUsuario($this->modelo->getDNI());
+        return $this->vista->vistaMostrarUsuario($this->modelo);
+    }
+
+    public function getAllVista()
+    {
+        return $this->vista->vistaMostrarUsuarios();
     }
 
     public function registerVista()
@@ -27,43 +32,18 @@ class UsuarioControlador
         return $this->vista->vistaRegistrarUsuario($this->modelo);
     }
 
-    public function setUsuarioNombre(string $nombre): void
+    public function updateVista()
     {
-        $this->modelo->setNombre($nombre);
+        return $this->vista->vistaModificarUsuario($this->modelo);
     }
 
-    public function getUsuarioNombre()
+    public function deleteVista()
     {
-        $this->modelo->getNombre();
+        return $this->vista->vistaEliminarUsuario($this->modelo);
     }
 
-    public function setUsuarioCorreo(string $correo): void
+    public function loginVista()
     {
-        $this->modelo->setCorreo($correo);
-    }
-
-    public function getUsuarioCorreo()
-    {
-        $this->modelo->getCorreo();
-    }
-
-    public function setUsuarioTelefono(string $telefono): void
-    {
-        $this->modelo->setTelefono($telefono);
-    }
-
-    public function getUsuarioTelefono()
-    {
-        $this->modelo->getTelefono();
-    }
-
-    public function setUsuarioDni(string $dni): void
-    {
-        $this->modelo->setDNI($dni);
-    }
-
-    public function getUsuarioDni()
-    {
-        $this->modelo->getDNI();
+        return $this->vista->vistaLoginUsuario($this->modelo);
     }
 }

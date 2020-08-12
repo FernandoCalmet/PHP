@@ -13,7 +13,6 @@ ErrorDocument 500 /page_500
 RewriteRule ^login$ login.php [L,NC]
 RewriteRule ^logout$ logout.php [L,NC]
 RewriteRule ^registro$ registro.php [L,NC]
-RewriteRule ^perfil$ perfil.php [L,NC]
 RewriteRule ^reservas$ reservas.php [L,NC]
 RewriteRule ^resultados$ resultados.php [L,NC]
 RewriteRule ^puntajes$ puntajes.php [L,NC]
