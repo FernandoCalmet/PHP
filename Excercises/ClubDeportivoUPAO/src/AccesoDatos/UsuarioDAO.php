@@ -17,7 +17,7 @@ final class UsuarioDAO implements IUsuarioDAO
     public function __construct()
     {
         $basedatos = new ConexionDAO();
-        $this->basedatos = $basedatos->mysql();      
+        $this->basedatos = $basedatos->mysql(); 
     }    
 
     public function getAllUsuarios()

@@ -22,16 +22,12 @@ $usuarioVista = new UsuarioVista();
 
 $usuarioControlador = new UsuarioControlador($usuarioModel, $usuarioVista);
 $usuarioControlador->updateVista();
-$usuarioControlador->setUsuarioNombre("Fernando");
-$usuarioControlador->updateVista();
 
 function retrieveUsuarioFromDatabase()
 {
-    /* $usuario = new Usuario();
+    $usuario = new Usuario();
     $usuario->setDNI("12345678");
-    return $usuario; */
-    $usuario = new UsuarioDAO();
-    return $usuario->getUsuario("12345678");
+    return $usuario;
 }
 
 ?>

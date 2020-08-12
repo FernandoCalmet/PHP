@@ -12,7 +12,7 @@ class UsuarioControlador
     private $modelo;
     private $vista;
 
-    public function __construct(Usuario $modelo, UsuarioVista $vista)
+    public function __construct(object $modelo, UsuarioVista $vista)
     {
         $this->modelo = $modelo;
         $this->vista = $vista;
