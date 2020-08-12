@@ -4,6 +4,36 @@ declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
 
+
+use App\Controladores\UsuarioControlador;
+use App\Modelos\Usuario;
+use App\Vistas\UsuarioVista;
+use App\AccesoDatos\UsuarioDAO;
+
+include __DIR__ . '/../src/Controladores/UsuarioControlador.php';
+include __DIR__ . '/../src/Modelos/Usuario.php';
+include __DIR__ . '/../src/Vistas/UsuarioVista.php';
+include __DIR__ . '/../src/AccesoDatos/UsuarioDAO.php';
+
+//test
+$usuarioModel = retrieveUsuarioFromDatabase();
+
+$usuarioVista = new UsuarioVista();
+
+$usuarioControlador = new UsuarioControlador($usuarioModel, $usuarioVista);
+$usuarioControlador->updateVista();
+$usuarioControlador->setUsuarioNombre("Fernando");
+$usuarioControlador->updateVista();
+
+function retrieveUsuarioFromDatabase()
+{
+    /* $usuario = new Usuario();
+    $usuario->setDNI("12345678");
+    return $usuario; */
+    $usuario = new UsuarioDAO();
+    return $usuario->getUsuario("12345678");
+}
+
 ?>
 
 <!DOCTYPE html>

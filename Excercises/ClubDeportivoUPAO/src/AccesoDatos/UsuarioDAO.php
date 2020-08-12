@@ -4,76 +4,71 @@ declare(strict_types=1);
 
 namespace App\AccesoDatos;
 
-use App\Entidades\Usuario;
-use App\AccesoDatos\ConexionDAO;
-use PDO;
+use App\Modelos\Usuario;
+use App\Exception\UsuarioException;
 
-class UsuarioDAO implements IUsuarioDAO
+include __DIR__ . '/IUsuarioDAO.php';
+include __DIR__ . '/ConexionDAO.php';
+
+final class UsuarioDAO implements IUsuarioDAO
 {
-    private $conexionBD;
+    private $basedatos;
 
-    function __construct()
+    public function __construct()
     {
-        $this->conexionBD = new ConexionDAO();
-    }
+        $basedatos = new ConexionDAO();
+        $this->basedatos = $basedatos->mysql();      
+    }    
 
-    function getAllUsuarios()
+    public function getAllUsuarios()
     {
-        $dbh = $this->conexionBD->mysql();
         $query = "SELECT id, nombre, correo, telefono, dni FROM usuarios";
-        $statement = $dbh->prepare($query);
+        $statement = $this->basedatos->prepare($query);
         $statement->execute();
-        $usuarios = $statement->fetchAll(PDO::FETCH_ASSOC);
-        $dbh = null;
-        return $usuarios;
+        return $statement->fetchAll();
     }
 
-    function getUsuario(int $dni): Usuario
+    public function getUsuario(string $dni): object
     {
-        $dbh = $this->conexionBD->mysql();
         $query = "SELECT id, nombre, correo, telefono, dni FROM usuarios WHERE dni = :dni";
-        $statement = $dbh->prepare($query);
-        $statement->bindParam(':id', $dni);
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam(':dni', $dni);
         $statement->execute();
-        $usuario = $statement->fetchObject(PDO::FETCH_ASSOC);
-        $dbh = null;
+        $usuario = $statement->fetchObject();
+        if (!$usuario) {
+            throw new UsuarioException('No se encontro al usuario.', 404);
+        }
         return $usuario;
     }
 
-    function createUsuario(Usuario $usuario): void
+    public function createUsuario(Usuario $usuario): void
     {
-        $dbh = $this->conexionBD->mysql();
         $query = "INSERT INTO usuarios (nombre, correo, telefono, dni) VALUES (:nombre, :correo, :telefono, :dni)";
-        $statement = $dbh->prepare($query);
+        $statement = $this->basedatos->prepare($query);
         $statement->bindParam(':nombre', $usuario->getNombre());
         $statement->bindParam(':correo', $usuario->getCorreo());
         $statement->bindParam(':telefono', $usuario->getTelefono());
         $statement->bindParam(':dni', $usuario->getDNI());
         $statement->execute();
-        $dbh = null;
     }
 
-    function updateUsuario(Usuario $usuario): void
+    public function updateUsuario(Usuario $usuario): void
     {
-        $dbh = $this->conexionBD->mysql();
         $query = "UPDATE usuarios SET nombre = :nombre, correo = :correo, telefono = :telefono, dni = :dni WHERE id = :id";
-        $statement = $dbh->prepare($query);
+        $statement = $this->basedatos->prepare($query);
         $statement->bindParam(':id', $usuario->getId());
         $statement->bindParam(':nombre', $usuario->getNombre());
         $statement->bindParam(':correo', $usuario->getCorreo());
         $statement->bindParam(':telefono', $usuario->getTelefono());
         $statement->bindParam(':dni', $usuario->getDNI());
         $statement->execute();
-        $dbh = null;
     }
 
-    function deleteUsuario(Usuario $usuario): void
+    public function deleteUsuario(Usuario $usuario): void
     {
-        $dbh = $this->conexionBD->mysql();
         $query = "DELETE FROM usuarios WHERE id = :id";
-        $statement = $dbh->prepare($query);
+        $statement = $this->basedatos->prepare($query);
         $statement->bindParam(':id', $usuario->getId());
         $statement->execute();
-        $dbh = null;
     }
 }

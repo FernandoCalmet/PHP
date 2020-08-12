@@ -7,9 +7,9 @@ namespace App\AccesoDatos;
 use PDO;
 use PDOException;
 
-class ConexionDAO
+final class ConexionDAO
 {
-    public function mysql(): object
+    public function mysql()
     {
         $host = 'localhost';
         $dbname = 'club_deportivo';
