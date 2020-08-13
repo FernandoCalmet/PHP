@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `campos`;
 CREATE TABLE `campos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  `correo` varchar(50) NOT NULL UNIQUE,
-  `telefono` varchar(20) NOT NULL UNIQUE,
+  `correo` varchar(50) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
   `descripcion` text,
   `created_at` timestamp not null default current_timestamp,
   `updated_at` timestamp null on update current_timestamp,

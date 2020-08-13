@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
-require __DIR__ . '/forms/PostData.php';
+require __DIR__ . '/forms/UsuarioData.php';
 
 if (isset($_SESSION['usuario'])) {
     header("Location: /");

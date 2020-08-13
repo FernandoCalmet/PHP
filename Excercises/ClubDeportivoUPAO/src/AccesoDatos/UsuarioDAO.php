@@ -119,4 +119,13 @@ final class UsuarioDAO implements IUsuarioDAO
 
         return $usuario;
     }
+
+    public function getAllCamposFromUsuarios(object $usuario)
+    {
+        $query = "SELECT id, nombre, correo, telefono, descripcion FROM campos WHERE correo = :correo";
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam('correo', $usuario->correo);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }

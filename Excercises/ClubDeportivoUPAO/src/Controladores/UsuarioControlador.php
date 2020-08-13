@@ -46,4 +46,9 @@ class UsuarioControlador
     {
         return $this->vista->vistaLoginUsuario($this->modelo);
     }
+
+    public function getCamposVista()
+    {
+        return $this->vista->vistaMostrarCamposFromUsuario($this->modelo);
+    }
 }

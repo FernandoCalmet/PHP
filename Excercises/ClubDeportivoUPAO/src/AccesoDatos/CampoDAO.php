@@ -22,11 +22,11 @@ final class CampoDAO implements ICampoDAO
 
     public function getAllCampos()
     {
-        $query = "SELECT id, nombre, telefono, descripcion FROM campos";
+        $query = "SELECT id, nombre, correo, telefono, descripcion FROM campos";
         $statement = $this->basedatos->prepare($query);
         $statement->execute();
         return $statement->fetchAll();
-    }
+    } 
 
     public function getCampo(object $campo): object
     {
@@ -85,5 +85,33 @@ final class CampoDAO implements ICampoDAO
         $statement = $this->basedatos->prepare($query);
         $statement->bindParam(':id', $campo->id);
         $statement->execute();
+    }
+
+    public function getAllCamposFromUsuarios(string $correo)
+    {
+        $query = "SELECT id, nombre, correo, telefono, descripcion FROM campos WHERE correo = :correo";
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam('correo', $correo);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function getAllReservasFromUsuarios(int $id)
+    {        
+        $query = "
+            SELECT 
+                reservas.id,
+                reservas.fecha_reserva,
+                reservas.estado,
+                campos.nombre `campo_nombre`
+            FROM ((reservas
+            INNER JOIN campos ON reservas.campoId = campos.id)
+            INNER JOIN usuarios ON reservas.usuarioId = usuarios.id)
+            WHERE reservas.usuarioId = :id
+        ";
+        $statement = $this->basedatos->prepare($query);
+        $statement->bindParam('id', $id);
+        $statement->execute();
+        return $statement->fetchAll();
     }
 }

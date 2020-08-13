@@ -46,4 +46,16 @@ final class CampoData
         $campoControlador = new CampoControlador($campoModel, $this->campoVista);
         return $campoControlador->deleteVista($campoModel);
     }
+
+    public function getUsuarioAllCampos($campoModel)
+    {
+        $campoControlador = new CampoControlador($campoModel, $this->campoVista);
+        return $campoControlador->getUsuarioCamposVista($campoModel);
+    }
+
+    public function getUsuarioAllReservas($campoModel)
+    {
+        $campoControlador = new CampoControlador($campoModel, $this->campoVista);
+        return $campoControlador->getUsuarioReservasVista($campoModel);
+    }
 }

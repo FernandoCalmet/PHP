@@ -18,6 +18,7 @@ if (isset($_POST['txtEmail']) && isset($_POST['txtPassword'])) {
         $usuario->password = hash('sha512', $_POST['txtPassword']);
         $usuarioData = new UsuarioData();
         $_SESSION['usuario'] = $usuarioData->loginUsuario($usuario);
+        header("Location: /reservas");
         $message = "Se conecto exitosamente!";
     } else {
         $message = "ERROR: No se permiten campos vacios";

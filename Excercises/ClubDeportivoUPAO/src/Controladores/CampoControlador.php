@@ -41,4 +41,14 @@ class CampoControlador
     {
         return $this->vista->vistaEliminarCampo($this->modelo);
     }
+
+    public function getUsuarioCamposVista()
+    {
+        return $this->vista->vistaMostrarCamposFromUsuario($this->modelo->correo);
+    }
+
+    public function getUsuarioReservasVista()
+    {
+        return $this->vista->vistaMostrarReservasFromUsuario($this->modelo->id);
+    }
 }

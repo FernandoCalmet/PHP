@@ -10,9 +10,10 @@
             </div>
             <div class="modal-body">
                 <p>Id. <?php echo $row['id']; ?></p>
-                <p>Nombre <?php echo $row['nombre']; ?></p>
-                <p>Telefono <?php echo $row['telefono']; ?></p>
+                <p>Nombre del campo<?php echo $row['nombre']; ?></p>
                 <p>Descripcion <?php echo $row['descripcion']; ?></p>
+                <p>Correo <?php echo $row['correo']; ?></p>
+                <p>Telefono <?php echo $row['telefono']; ?></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

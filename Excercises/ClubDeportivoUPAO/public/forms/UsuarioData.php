@@ -52,4 +52,10 @@ final class UsuarioData
         $usuarioControlador = new UsuarioControlador($usuarioModel, $this->usuarioVista);
         return $usuarioControlador->loginVista($usuarioModel);
     }
+
+    public function getUsuarioAllCampos($usuarioModel)
+    {
+        $usuarioControlador = new UsuarioControlador($usuarioModel, $this->usuarioVista);
+        return $usuarioControlador->getCamposVista($usuarioModel);
+    }
 }

@@ -9,13 +9,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="">
-                    nombre, telefono, descripcion
+                <form method="post" action="/reservas">
+                    <div class="form-group">
+                        <label class="input-label">Nombre del campo<span class="req">*</span></label>
+                        <input class="form-control" type="text" name="txtName" required="">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="input-label">Descripcion del campo<span class="req">*</span></label>
+                        <textarea class="form-control" rows="3" name="txtDescription" required=""></textarea>
+                    </div>
+                    <div class="form.group">
+                        <button class="readon" type="submit" name="submit_registro">Confirmar registro</button>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <a href="/registrar_campo?id_usuario=<?php echo $usuario->id; ?>&nombre=texto&telefono=texto&descripcion=texto" class="btn btn-primary text-white">Confirmar registro</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                
             </div>
         </div>
     </div>

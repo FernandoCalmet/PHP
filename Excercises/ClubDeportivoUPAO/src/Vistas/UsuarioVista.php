@@ -46,4 +46,10 @@ class UsuarioVista
         $usuario_dao = new UsuarioDAO();
         return $usuario_dao->loginUsuario($usuario);
     }
+
+    public function vistaMostrarCamposFromUsuario(object $usuario)
+    {
+        $usuario_dao = new UsuarioDAO();
+        return $usuario_dao->getAllCamposFromUsuarios($usuario);
+    }
 }

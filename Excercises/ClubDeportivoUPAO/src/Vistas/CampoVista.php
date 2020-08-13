@@ -39,4 +39,16 @@ class CampoVista
         $campo_dao = new CampoDAO();
         $campo_dao->deleteCampo($campo);
     }
+
+    public function vistaMostrarCamposFromUsuario(string $correo)
+    {
+        $campo_dao = new CampoDAO();
+        return $campo_dao->getAllCamposFromUsuarios($correo);
+    }
+
+    public function vistaMostrarReservasFromUsuario(int $id)
+    {
+        $campo_dao = new CampoDAO();
+        return $campo_dao->getAllReservasFromUsuarios($id);
+    }
 }
