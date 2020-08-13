@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
-require __DIR__ . '/forms/PostData.php';
+require __DIR__ . '/forms/UsuarioData.php';
 
 if (isset($_SESSION['usuario'])) {
     header("Location: /reservas");
@@ -16,8 +16,8 @@ if (isset($_POST['txtEmail']) && isset($_POST['txtPassword'])) {
         $usuario = new stdClass();
         $usuario->correo = filter_var($_POST['txtEmail'], FILTER_VALIDATE_EMAIL);
         $usuario->password = hash('sha512', $_POST['txtPassword']);
-        $postdata = new PostData();
-        $_SESSION['usuario'] = $postdata->loginUsuario($usuario);
+        $usuarioData = new UsuarioData();
+        $_SESSION['usuario'] = $usuarioData->loginUsuario($usuario);
         $message = "Se conecto exitosamente!";
     } else {
         $message = "ERROR: No se permiten campos vacios";

@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../src/App/App.php';
+require __DIR__ . '/forms/CampoData.php';
 
+$message = '';
 $usuario = new stdClass();
 
 if (!isset($_SESSION['usuario'])) {
@@ -11,10 +13,11 @@ if (!isset($_SESSION['usuario'])) {
     $usuario = null;
 } else {
     $usuario = $_SESSION['usuario'];
+
+    $campo = new stdClass();
+    $campoData = new CampoData();
+    $rows = $campoData->getCampos($campo);
 }
-
-$message = '';
-
 ?>
 
 <?php include __DIR__ . '/partials/head.php'; ?>
@@ -52,14 +55,36 @@ $message = '';
         <div class="container">
             <div class="row pb-100 md-pb-72">
                 <div class="col-lg-12 md-mb-70">
+                    <h4 style="color: #214790;">Bienvenido <b><?php echo $usuario->nombre ?> </b>!</h4>
                     <div class="regi-side">
                         <div class="sec-title">
-                            <h2 class="title">Reserva tu campo deportivo</h2>
-                            <h4 style="color: red;"><?php echo $message ?></h4>
+                            <h2 class="title">Reserva tu campo deportivo preferido</h2>
+                            <h5 style="color: red;"><?php echo $message ?></h5>
                         </div>
                         <div>
-                            <h2 style="color: #214790;">Bienvenido <b><?php echo $usuario->nombre ?> </b>!</h2>
-                            <p>Tabla con lista de campos</p>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Telefono</th>
+                                        <th scope="col">Descripcion</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($rows as $row) { ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $row['id']; ?></th>
+                                            <td><?php echo $row['nombre']; ?></td>
+                                            <td><?php echo $row['telefono']; ?></td>
+                                            <td><?php echo $row['descripcion']; ?></td>
+                                            <td><a class="btn btn-primary text-white" href="#reservar_<?php echo $row['id']; ?>" data-toggle="modal">Reservar</a></td>
+                                            <?php include __DIR__ . '/modals/Reservas.php'; ?>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -67,7 +92,6 @@ $message = '';
         </div>
     </div>
     <!-- Account Login End -->
-
     <?php include __DIR__ . '/partials/footer.php'; ?>
 </body>
 

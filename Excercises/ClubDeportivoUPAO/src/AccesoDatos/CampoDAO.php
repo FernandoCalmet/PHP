@@ -22,7 +22,7 @@ final class CampoDAO implements ICampoDAO
 
     public function getAllCampos()
     {
-        $query = "SELECT * FROM campos";
+        $query = "SELECT id, nombre, telefono, descripcion FROM campos";
         $statement = $this->basedatos->prepare($query);
         $statement->execute();
         return $statement->fetchAll();
