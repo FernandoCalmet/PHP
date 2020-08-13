@@ -56,10 +56,9 @@ final class ReservaDAO implements IReservaDAO
 
     public function createReserva(object $reserva): object
     {
-        $query = "INSERT INTO reservas (fecha_reserva, descripcion, usuarioId, campoId) VALUES (:fecha_reserva, :descripcion, :usuarioId, :campoId)";
+        $query = "INSERT INTO reservas (fecha_reserva, usuarioId, campoId) VALUES (:fecha_reserva, :usuarioId, :campoId)";
         $statement = $this->basedatos->prepare($query);
-        $statement->bindParam(':fecha_reserva', $reserva->fecha_reserva);
-        $statement->bindParam(':descripcion', $reserva->descripcion);
+        $statement->bindParam(':fecha_reserva', $reserva->fecha_reserva);       
         $statement->bindParam(':usuarioId', $reserva->usuarioId);
         $statement->bindParam(':campoId', $reserva->campoId);
         $statement->execute();
@@ -68,11 +67,10 @@ final class ReservaDAO implements IReservaDAO
 
     public function updateReserva(object $reserva): object
     {
-        $query = "UPDATE reservas SET fecha_reserva = :fecha_reserva, descripcion = :descripcion, estado = :estado, usuarioId = :usuarioId, campoId = :campoId WHERE id = :id";
+        $query = "UPDATE reservas SET fecha_reserva = :fecha_reserva, estado = :estado, usuarioId = :usuarioId, campoId = :campoId WHERE id = :id";
         $statement = $this->basedatos->prepare($query);
         $statement->bindParam(':id', $reserva->id);
         $statement->bindParam(':fecha_reserva', $reserva->fecha_reserva);
-        $statement->bindParam(':descripcion', $reserva->descripcion);
         $statement->bindParam(':estado', $reserva->estado);
         $statement->bindParam(':usuarioId', $reserva->usuarioId);
         $statement->bindParam(':campoId', $reserva->campoId);

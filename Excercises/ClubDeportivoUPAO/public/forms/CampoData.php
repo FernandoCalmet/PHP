@@ -5,10 +5,10 @@ declare(strict_types=1);
 use App\Controladores\CampoControlador;
 use App\Vistas\CampoVista;
 
-include __DIR__ . '/../../src/Controladores/CampoControlador.php';;
+include __DIR__ . '/../../src/Controladores/CampoControlador.php';
 include __DIR__ . '/../../src/Vistas/CampoVista.php';
 
-class CampoData
+final class CampoData
 {
     private $campoVista;
 

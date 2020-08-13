@@ -7,9 +7,7 @@ namespace App\AccesoDatos;
 use PDO;
 use PDOException;
 
-require __DIR__ . '/IConexionDAO.php';
-
-final class ConexionDAO implements IConexionDAO
+final class ConexionDAO
 {
     public function mysql()
     {

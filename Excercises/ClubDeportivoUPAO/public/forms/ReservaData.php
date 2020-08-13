@@ -5,10 +5,10 @@ declare(strict_types=1);
 use App\Controladores\ReservaControlador;
 use App\Vistas\ReservaVista;
 
-include __DIR__ . '/../../src/Controladores/ReservaControlador.php';;
+include __DIR__ . '/../../src/Controladores/ReservaControlador.php';
 include __DIR__ . '/../../src/Vistas/ReservaVista.php';
 
-class ReservaData
+final class ReservaData
 {
     private $reservaVista;
 

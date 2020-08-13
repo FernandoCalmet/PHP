@@ -6,7 +6,7 @@ namespace App\Modelos;
 
 class Reserva
 {
-    private $id, $fecha_reserva, $estado, $descripcion, $usuarioId, $campoId;
+    private $id, $fecha_reserva, $estado, $usuarioId, $campoId;
 
     public function getId(): int
     {
@@ -56,15 +56,5 @@ class Reserva
     public function setCampoId(int $campoId): void
     {
         $this->campoId = $campoId;
-    }
-
-    public function getDescripcion(): string
-    {
-        return $this->descripcion;
-    }
-
-    public function setDescripcion(string $descripcion): void
-    {
-        $this->descripcion = $descripcion;
     }
 }

@@ -41,9 +41,8 @@ DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE IF NOT EXISTS `reservas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_reserva` datetime NOT NULL,
-  `descripcion` text,
   `estado` enum('disponible','ocupado') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ocupado',
-  `usuarioId` int(11) NOT NULL,
+  `usuarioId` int(11) NULL,
   `campoId` int(11) NOT NULL,
   `created_at` timestamp not null default current_timestamp,
   `updated_at` timestamp null on update current_timestamp,

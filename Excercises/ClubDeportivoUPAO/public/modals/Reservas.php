@@ -16,7 +16,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Confirmar reserva</button>
+                <a href="/reservar_campo?id_campo=<?php echo $row['id']; ?>&id_usuario=<?php echo $usuario->id; ?>" class="btn btn-primary text-white">Confirmar reserva</a>
             </div>
         </div>
     </div>

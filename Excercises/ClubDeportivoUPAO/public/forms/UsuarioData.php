@@ -5,10 +5,10 @@ declare(strict_types=1);
 use App\Controladores\UsuarioControlador;
 use App\Vistas\UsuarioVista;
 
-include __DIR__ . '/../../src/Controladores/UsuarioControlador.php';;
+include __DIR__ . '/../../src/Controladores/UsuarioControlador.php';
 include __DIR__ . '/../../src/Vistas/UsuarioVista.php';
 
-class UsuarioData
+final class UsuarioData
 {
     private $usuarioVista;
 

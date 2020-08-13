@@ -6,6 +6,7 @@ require __DIR__ . '/../src/App/App.php';
 require __DIR__ . '/forms/CampoData.php';
 
 $message = '';
+$time = null;
 $usuario = new stdClass();
 
 if (!isset($_SESSION['usuario'])) {
@@ -55,11 +56,17 @@ if (!isset($_SESSION['usuario'])) {
         <div class="container">
             <div class="row pb-100 md-pb-72">
                 <div class="col-lg-12 md-mb-70">
-                    <h4 style="color: #214790;">Bienvenido <b><?php echo $usuario->nombre ?> </b>!</h4>
+                    <h4>Bienvenido <b style="color: #214790;"><?php echo $usuario->nombre ?> </b>!</h4>
+                    <p>
+                        <a class="btn btn-lg btn-success text-white" href="#registrar_campo" data-toggle="modal">Registrar un campo</a>
+                        <a class="btn btn-lg btn-warning text-white" href="#mostrar_mis_campos" data-toggle="modal">Ver mis campos</a>
+                    </p>
+                    <?php include __DIR__ . '/modals/RegistrarCampo.php'; ?>
+                    <?php include __DIR__ . '/modals/MostrarMisCampos.php'; ?>
                     <div class="regi-side">
                         <div class="sec-title">
                             <h2 class="title">Reserva tu campo deportivo preferido</h2>
-                            <h5 style="color: red;"><?php echo $message ?></h5>
+                            <h5 style="color: blue;"><?php echo $message ?></h5>
                         </div>
                         <div>
                             <table class="table table-hover">
