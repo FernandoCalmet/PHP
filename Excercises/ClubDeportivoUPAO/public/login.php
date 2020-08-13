@@ -16,10 +16,14 @@ if (isset($_POST['txtEmail']) && isset($_POST['txtPassword'])) {
         $usuario = new stdClass();
         $usuario->correo = filter_var($_POST['txtEmail'], FILTER_VALIDATE_EMAIL);
         $usuario->password = hash('sha512', $_POST['txtPassword']);
-        $usuarioData = new UsuarioData();
-        $_SESSION['usuario'] = $usuarioData->loginUsuario($usuario);
-        header("Location: /reservas");
-        $message = "Se conecto exitosamente!";
+        try {
+            $usuarioData = new UsuarioData();
+            $_SESSION['usuario'] = $usuarioData->loginUsuario($usuario);
+            header("Location: /reservas");
+            $message = "Se conecto exitosamente!";
+        } catch (Exception $ex) {
+            echo '<script language="javascript">alert("ERROR: ' . $ex->getMessage() . '")</script>';
+        }
     } else {
         $message = "ERROR: No se permiten campos vacios";
     }

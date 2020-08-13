@@ -34,7 +34,7 @@ $rowsCampos = $usuarioCamposData->getUsuarioAllCampos($camposUsuario);
                                 <td><?php echo $rowCampos['correo']; ?></td>
                                 <td><?php echo $rowCampos['telefono']; ?></td>
                                 <td><?php echo $rowCampos['descripcion']; ?></td>
-                                <td><a class="btn btn-sm btn-danger text-white" href="/eliminar_campo?id_campo=<?php echo $row['id']; ?>&id_usuario=<?php echo $usuario->id; ?>">Eliminar</a></td>
+                                <td><a class="btn btn-sm btn-danger text-white" href="/eliminar_campo?id_campo=<?php echo $rowCampos['id']; ?>&id_usuario=<?php echo $usuario->id; ?>">Eliminar</a></td>
                                 <?php include __DIR__ . '/../forms/EliminarCampo.php'; ?>
                             </tr>
                         <?php } ?>

@@ -6,9 +6,13 @@ if (isset($_GET['id_usuario']) && isset($_GET['nombre']) && isset($_GET['telefon
     $campo->nombre = $_GET['nombre'];
     $campo->telefono = $_GET['telefono'];
     $campo->descripcion = $_GET['descripcion'];
-    $campoData = new CampoData();
-    $campoData->registrarCampo($campo);
-    header("Location: /reservas");
+    try {
+        $campoData = new CampoData();
+        $campoData->registrarCampo($campo);
+        header("Location: /reservas");
+    } catch (Exception $ex) {
+        echo '<script language="javascript">alert("ERROR: ' . $ex->getMessage() . '")</script>';
+    }
 } else {
     header("Location: /reservas");
 }

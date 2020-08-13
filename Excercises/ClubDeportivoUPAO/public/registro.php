@@ -20,11 +20,15 @@ if (isset($_POST['txtEmail']) && isset($_POST['txtPassword']) && isset($_POST['t
             $usuario->nombre = filter_var($_POST['txtName'], FILTER_SANITIZE_STRIPPED);
             $usuario->telefono = filter_var($_POST['txtPhone'], FILTER_SANITIZE_STRIPPED);
             $usuario->dni = filter_var($_POST['txtDNI'], FILTER_SANITIZE_STRIPPED);
-            $usuarioData = new UsuarioData();
-            $_SESSION['usuario'] = $usuarioData->registrarUsuario($usuario);
-            $message = "El registro se realizo exitosamente!";
-            sleep(5);
-            header("Location: /");
+            try {
+                $usuarioData = new UsuarioData();
+                $_SESSION['usuario'] = $usuarioData->registrarUsuario($usuario);
+                $message = "El registro se realizo exitosamente!";
+                sleep(2);
+                header("Location: /");
+            } catch (Exception $ex) {
+                echo '<script language="javascript">alert("ERROR: ' . $ex->getMessage() . '")</script>';
+            }
         } else {
             $message = "ERROR: Las contraseñas no coinciden.";
         }

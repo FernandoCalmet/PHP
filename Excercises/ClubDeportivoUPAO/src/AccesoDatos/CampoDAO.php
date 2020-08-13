@@ -83,7 +83,7 @@ final class CampoDAO implements ICampoDAO
     {
         $query = "DELETE FROM campos WHERE id = :id";
         $statement = $this->basedatos->prepare($query);
-        $statement->bindParam(':id', $campo->id);
+        $statement->bindParam(':id', $campo->campoId);
         $statement->execute();
     }
 

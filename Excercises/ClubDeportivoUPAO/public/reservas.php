@@ -14,10 +14,13 @@ if (!isset($_SESSION['usuario'])) {
     $usuario = null;
 } else {
     $usuario = $_SESSION['usuario'];
-
-    $campo = new stdClass();
-    $campoData = new CampoData();
-    $rows = $campoData->getCampos($campo);
+    try {
+        $campo = new stdClass();
+        $campoData = new CampoData();
+        $rows = $campoData->getCampos($campo);
+    } catch (Exception $ex) {
+        echo '<script language="javascript">alert("ERROR: ' . $ex->getMessage() . '")</script>';
+    }
 }
 
 if (isset($_POST['txtName']) && isset($_POST['txtDescription']) && isset($_POST['submit_registro'])) {
@@ -28,9 +31,13 @@ if (isset($_POST['txtName']) && isset($_POST['txtDescription']) && isset($_POST[
         $campoRegistrar->telefono = $usuario->telefono;
         $campoRegistrar->correo = $usuario->correo;
         $campoRegistrar->descripcion = $_POST['txtDescription'];
-        $campoDataRegistro = new CampoData();
-        $campoDataRegistro->registrarCampo($campoRegistrar);
-        header("Location: /reservas");
+        try {
+            $campoDataRegistro = new CampoData();
+            $campoDataRegistro->registrarCampo($campoRegistrar);
+            header("Location: /reservas");
+        } catch (Exception $ex) {
+            echo '<script language="javascript">alert("ERROR: ' . $ex->getMessage() . '")</script>';
+        }
     }
 }
 
@@ -74,7 +81,7 @@ if (isset($_POST['txtName']) && isset($_POST['txtDescription']) && isset($_POST[
                     <h4>Bienvenido <b style="color: #214790;"><?php echo $usuario->nombre ?> </b>!</h4>
                     <p>
                         <a class="btn btn-lg btn-success text-white" href="#registrar_campo" data-toggle="modal">Registrar un campo</a>
-                        <a class="btn btn-lg btn-warning text-white" href="#mostrar_mis_campos_<?php echo $usuario->correo;?>" data-toggle="modal">Ver mis campos</a>
+                        <a class="btn btn-lg btn-warning text-white" href="#mostrar_mis_campos_<?php echo $usuario->correo; ?>" data-toggle="modal">Ver mis campos</a>
                         <a class="btn btn-lg btn-primary text-white" href="#mostrar_mis_reservas" data-toggle="modal">Ver mis reservas</a>
                     </p>
                     <?php include __DIR__ . '/modals/RegistrarCampo.php'; ?>
@@ -93,7 +100,7 @@ if (isset($_POST['txtName']) && isset($_POST['txtDescription']) && isset($_POST[
                                         <th scope="col">Nombre del campo</th>
                                         <th scope="col">Descripcion</th>
                                         <th scope="col">Correo</th>
-                                        <th scope="col">Telefono</th>                                        
+                                        <th scope="col">Telefono</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -104,7 +111,7 @@ if (isset($_POST['txtName']) && isset($_POST['txtDescription']) && isset($_POST[
                                             <td><?php echo $row['nombre']; ?></td>
                                             <td><?php echo $row['descripcion']; ?></td>
                                             <td><?php echo $row['correo']; ?></td>
-                                            <td><?php echo $row['telefono']; ?></td>                                            
+                                            <td><?php echo $row['telefono']; ?></td>
                                             <td><a class="btn btn-primary text-white" href="#reservar_<?php echo $row['id']; ?>" data-toggle="modal">Reservar</a></td>
                                             <?php include __DIR__ . '/modals/Reservas.php'; ?>
                                         </tr>
